@@ -163,9 +163,49 @@ git reset --hard 哈希值
 #### 远程仓库访问的方式
 
 - https：零配置，但是每次访问仓库时，需要重复书 github账号和密码才能访问
+
+  ~~~
+  git remote add origin https://github.com/xxxx/xxx
+  git branch -M main
+  git push -u origin main
+  ~~~
+
+  - 使用该方式密码需要使用 token ，token我们可以在github 中设置
+    - 设置步骤settings->developer setting -> personal access tokens中，密码就使用我们该 token 即可
+
 - SSH：需要进行额外的配置，但是配置成功后，每次访问仓库时，不需要重复输入github的账号和密码，在实际开发中一般使用这种方式
 
+  1. 生成
 
+     - 打开 git 命令面板
+     - 输入 ssh-keygen -t  rsa -b 4096 -C "你的注册邮箱"
+     - 连续敲击3次回车，即可在 C:\Users\用户名文件夹\.ssh 目录中生成 id_rsa和id_rsa.pub两个文件（路径一般在面板中有提示）
+
+  2. 配置
+
+     - 使用记事本打开生成的id_rsa.pub 文件，复制里面的文本内容
+     - 在github中点击 settings->SSH and GPG Keys -> New SSH key
+     - 将id_rsa.pub文件中的内容，粘贴到key对应的文本框中
+
+  3. 检测是否配置成功
+
+     ~~~
+     #git面板中输入执行
+     ssh -T git@github.com
+     # 回车后 出现提示 输入 yes
+     #回车 出现 successfully 说明成功
+     ~~~
+
+  4. 通过 ssh 上传
+
+     ~~~
+     git remote add origin git@github.com:longtian1911/zixuebiji.git
+     // 如果执行上面代码报错 可以使用  remote rm origin  删除远程git仓库
+     git branch -M main
+     git push -u origin main
+     ~~~
+
+     
 
 
 
